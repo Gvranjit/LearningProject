@@ -32,7 +32,9 @@ app.use((req, res, next) => {
 app.use("/admin", adminRoutes);
 app.use("/user", userRoutes);
 app.use(authRoutes);
-
+app.use((error, req, res, next) => {
+     console.log("An error was reported \n" + error);
+});
 //Connect to database and start listening to a predfined port after that.
 
 Mongoose.connect(process.env.CHATDB, { useNewUrlParser: true })
