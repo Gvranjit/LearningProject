@@ -34,8 +34,10 @@ app.use("/user", userRoutes);
 app.use(authRoutes);
 
 //Connect to database and start listening to a predfined port after that.
-Mongoose.connect("mongodb://localhost:27017/EkChatDb", { useNewUrlParser: true })
+
+Mongoose.connect(process.env.CHATDB, { useNewUrlParser: true })
      .then(() => {
+          console.log("successfully connected to ", process.env.CHATDB);
           app.listen(process.env.PORT);
      })
      .catch((err) => console.log(err));
