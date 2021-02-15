@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+     <%- include ("../includes/head.ejs") %>
+
+     <link rel="stylesheet" href="/css/login.css" />
+
+     <body>
+          <%-include ("../includes/nav.ejs") %>
+          <div class="login-container">
+               <form action="/auth/login" method="POST" class="login-form">
+                    <ul class="login-title">
+                         <li class="login-brand">Chat</li>
+                         <li class="login-text">Login</li>
+                    </ul>
+                    <div class="username">
+                         <input
+                              type="text"
+                              class="login-input"
+                              id="username"
+                              name="username"
+                              required
+                         />
+                         <label for="username" class="username-label">Username</label>
+                    </div>
+
+                    <div class="password">
+                         <input
+                              type="password"
+                              class="login-input"
+                              id="password"
+                              name="password"
+                              required
+                         />
+                         <label for="password" class="password-label">Password</label>
+                    </div>
+                    <button id="login" type="submit" class="login-button">Login</button>
+                    <a href="#">Forgot Password?</a>
+                    <a href="#" id="register">Register</a>
+               </form>
+
+               <form action="/auth/register" method="POST" class="registration-form">
+                    <ul class="login-title">
+                         <li class="login-brand">Chat</li>
+                         <li class="login-text">Registration</li>
+                    </ul>
+                    <label for="firstName">First Name:</label>
+                    <input type="text" class="login-input" id="registration-fname" name="fname" />
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" class="login-input" id="registration-lname" name="lname" />
+                    <label for="nickname">Nick:</label>
+                    <input
+                         type="text"
+                         class="login-input"
+                         id="registration-nickname"
+                         name="nickName"
+                    />
+
+                    <!-- <div class="floating-email">Email</div> -->
+                    <label for="username">Username:</label>
+                    <input
+                         type="username"
+                         class="login-input"
+                         id="registration-username"
+                         name="username"
+                    />
+                    <label for="password">Password:</label>
+                    <!-- <div class="floating-password">Password</div> -->
+                    <input
+                         type="password"
+                         class="login-input"
+                         id="registration-password"
+                         name="password"
+                    />
+                    <!-- <div class="floating-repeat-password">Repeat Password</div> -->
+                    <label for="repeat-password">Repeat Password</label>
+                    <input
+                         type="password"
+                         class="login-input"
+                         id="repeat-password"
+                         name="repeatPassword"
+                    />
+                    <button id="registration" type="submit" class="registration-button">
+                         Register
+                    </button>
+                    <button id="cancel" type="reset" class="red">Cancel</button>
+               </form>
+          </div>
+
+          <script src="/scripts/login.js"></script>
+     </body>
+</html>

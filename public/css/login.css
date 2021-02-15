@@ -1,0 +1,146 @@
+body {
+     background: url("/images/firewatch.jpg") no-repeat;
+     background-size: cover;
+     height: 100vh;
+     image-rendering: optimizeSpeed;
+     background-attachment: fixed;
+}
+.login-container {
+     display: block;
+     margin: auto;
+     width: 100vw;
+     position: absolute;
+     text-align: center;
+}
+.login-form,
+.registration-form {
+     margin: auto;
+     position: absolute;
+     left: 0;
+     right: 0;
+     height: 100vh;
+     width: 100vw;
+     background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.781));
+
+     color: white;
+     padding: 3rem;
+     border-radius: 0;
+
+     backdrop-filter: blur(10px);
+     z-index: 200;
+}
+.registration-form {
+     top: 0;
+     display: none;
+     z-index: 300;
+}
+.login-title {
+     list-style: none;
+     font-size: 3rem;
+     padding: 2rem;
+}
+.login-brand {
+     font-size: 2rem;
+}
+.login-input {
+     display: block;
+     margin: auto;
+     margin-bottom: 2rem;
+     margin-top: 1rem;
+     width: 100%;
+     height: 2rem;
+     background: rgba(221, 221, 221, 0);
+     border: none;
+     border-bottom: gray solid;
+     font-size: 1.1rem;
+     color: rgba(255, 255, 255, 0.678);
+     /* border-radius: 1rem; */
+     text-align: center;
+}
+.login-input:focus {
+     outline: none;
+     background-color: rgba(163, 163, 163, 0.575);
+     color: black;
+     border: none;
+     transition-duration: 200ms;
+}
+.login-button,
+.registration-button {
+     margin-top: 2rem;
+     border: none;
+     margin-right: 2rem;
+     margin-left: 2rem;
+}
+.cancel-button {
+     background-color: rgb(158, 0, 0);
+}
+
+@media (min-width: 600px) {
+     .login-container {
+          padding: 10rem;
+     }
+     .login-form,
+     .registration-form {
+          top: 7rem;
+          width: 400px;
+          /* border-radius: 10px;
+          margin-top: 2rem; */
+          height: auto;
+     }
+     .registration-form {
+          top: 3rem;
+     }
+}
+
+.login-container a {
+     color: white;
+     display: block;
+     padding: 1rem;
+}
+
+.username,
+.password {
+     position: relative;
+     height: 3rem;
+     margin: 0;
+}
+
+.username-label,
+.password-label,
+.username .login-input,
+.password .login-input {
+     margin: 0;
+     position: absolute;
+
+     z-index: 2;
+}
+
+.username > label,
+.password > label {
+     display: inline-block;
+     text-align: left;
+     padding: 0.5rem;
+     z-index: 1;
+     left: 0;
+     top: 0;
+     bottom: 1rem;
+     color: white;
+     width: 5rem;
+
+     transition-duration: 500ms;
+}
+
+.login-input:focus + label,
+.username-input:focus + label,
+.login-input:valid + label,
+.username-input:valid + label {
+     color: white;
+
+     position: absolute;
+
+     width: 100%;
+     font-size: 0.6rem;
+     height: 1rem;
+
+     background: rgba(4, 115, 206, 0.671);
+}

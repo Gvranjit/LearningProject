@@ -15,3 +15,12 @@
 -    Admin
      -    can assign moderators or strip their role
      -    can kick anybody. If they kick a moderator, their role gets removed from their database.
+
+## Database to use :
+
+MongoDB, Mongoose ORM
+
+# Authentication :
+
+-    Google sign in button (very simple for now, can be bypassed easily, but that's besides the point)
+-
