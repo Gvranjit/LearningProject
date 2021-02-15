@@ -33,5 +33,9 @@ app.use("/admin", adminRoutes);
 app.use("/user", userRoutes);
 app.use(authRoutes);
 
-//start listening on port
-app.listen(process.env.PORT);
+//Connect to database and start listening to a predfined port after that.
+Mongoose.connect("mongodb://localhost:27017/EkChatDb", { useNewUrlParser: true })
+     .then(() => {
+          app.listen(process.env.PORT);
+     })
+     .catch((err) => console.log(err));

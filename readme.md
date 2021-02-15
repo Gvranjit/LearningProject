@@ -1,8 +1,9 @@
 ## This is a simple chat platform where there are three types of users:
 
 -    Normal Users:
--    Can signup using a google-sign in button (no proper authentication for now, as using emails would be painful due to spam reports)
--    Can chat in the assigned chatroom with other users. (for now)
+-    Register and Login to the system using a unique usernames.
+-    Can view list of other users.
+-    Later Can chat in the assigned chatroom with other users. (for now)
 -    Later, add ability to make Direct messaging possible
 
 -    Moderator :
