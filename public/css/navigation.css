@@ -1,0 +1,189 @@
+* {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+}
+
+.nav {
+     position: fixed;
+     top: 0;
+     display: block;
+     width: 100vw;
+     background: rgba(42, 42, 42, 0.829);
+     height: 3rem;
+     overflow: hidden;
+     color: white;
+     font-family: "Courier New", Courier, monospace;
+     text-align: center;
+     z-index: 400;
+}
+
+.nav img {
+     height: 3rem;
+     border-radius: 50%;
+     padding: 5px;
+     border: rgba(0, 0, 0, 0.424) solid;
+
+     background: rgb(149, 149, 149);
+}
+
+.logo-text {
+     display: inline-block;
+     position: relative;
+     bottom: 1rem;
+     font-size: 1.5rem;
+     font-weight: bold;
+     animation: logo-rainbow 10s infinite;
+     user-select: none;
+}
+@keyframes logo-rainbow {
+     0% {
+          color: violet;
+     }
+     10% {
+          color: indigo;
+     }
+     20% {
+          color: blue;
+     }
+     30% {
+          color: green;
+     }
+     40% {
+          color: yellow;
+     }
+     50% {
+          color: orange;
+     }
+     60% {
+          color: red;
+     }
+     70% {
+          color: violet;
+     }
+}
+.logo-text:hover {
+     animation: logo-rainbow 1s infinite;
+}
+.profile-picture {
+     border-radius: 50%;
+     display: block;
+     position: fixed;
+     top: 0rem;
+     right: 0rem;
+     height: 3rem;
+     width: 3rem;
+     overflow: hidden;
+     text-align: center;
+}
+.profile-picture img {
+     display: inline-block;
+
+     height: 3rem;
+     width: auto;
+     margin: auto;
+     border: rgba(0, 0, 0, 0.424) solid;
+     padding: 0;
+     background: rgb(149, 149, 149);
+}
+.nav-items {
+     display: none;
+     position: fixed;
+     top: 3rem;
+     right: 0rem;
+
+     list-style: none;
+     text-decoration: none;
+     border: none;
+
+     flex-direction: column;
+}
+.nav-item {
+     text-align: center;
+}
+.nav-item a {
+     display: flex;
+     padding: 2.5rem 25vw;
+     background: rgba(0, 0, 0, 0.801);
+
+     text-align: center;
+     position: relative;
+     color: white;
+     text-decoration: none;
+     box-shadow: 2px 2px 300px 10px rgba(0, 0, 0, 0.671);
+}
+.nav-item a:hover {
+     background-color: rgba(77, 24, 224, 0.883);
+}
+.logout {
+     background-color: rgba(0, 0, 0, 0.63);
+}
+
+.logout:hover {
+     background-color: rgb(255, 0, 0);
+}
+@media (min-width: 600px) {
+     .nav {
+          text-align: left;
+     }
+
+     .nav-item a {
+          display: flex;
+          padding: 1rem 4rem;
+
+          right: 0rem;
+
+          text-decoration: none;
+          border: none;
+     }
+     .logout:hover {
+          background-color: rgb(255, 0, 0);
+     }
+}
+
+.confirmation {
+     width: 100%;
+     margin: auto;
+     display: none; /*or block*/
+     background: rgba(20, 20, 20, 0.623);
+     text-align: center;
+     position: absolute;
+     top: 6rem;
+     right: 0;
+     left: 0;
+     z-index: 200;
+}
+@media (min-width: 600px) {
+     .confirmation {
+          width: 500px;
+     }
+}
+.confirmation h2 {
+     padding: 3rem;
+}
+
+#yes,
+#no {
+     display: inline-block;
+     margin: 0;
+
+     right: 0;
+     left: 0;
+     padding: 0;
+     width: 49%;
+}
+
+#yes {
+     background: rgb(189, 5, 5);
+     color: white;
+}
+#yes:hover {
+     background: red;
+}
+#no {
+     background: rgb(22, 163, 3);
+     color: white;
+}
+#no:hover {
+     background: rgb(115, 255, 0);
+}

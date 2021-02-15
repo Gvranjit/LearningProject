@@ -1,0 +1,43 @@
+* {
+     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial,
+          sans-serif;
+}
+
+button {
+     border: none;
+     padding: 0.5rem;
+     width: 5rem;
+     height: 2rem;
+     user-select: none;
+}
+.red {
+     background-color: rgb(177, 10, 10);
+     color: white;
+}
+button:hover {
+     background: orange;
+     filter: contrast(2);
+}
+button:focus {
+     background: orange;
+     filter: contrast(2);
+     outline: none;
+}
+
+#backdrop {
+     position: fixed;
+     display: none;
+     height: 100vh;
+     width: 100vw;
+     background-color: rgba(0, 0, 0, 0.479);
+     backdrop-filter: blur(3px);
+     z-index: 100;
+}
+.transparent-backdrop {
+     position: fixed;
+     display: none;
+     height: 100vh;
+     width: 100vw;
+     backdrop-filter: blur(3px);
+     z-index: 100;
+}
