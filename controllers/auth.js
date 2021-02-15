@@ -1,5 +1,7 @@
 //imports
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
+const salt = 10;
 
 exports.getLogin = (req, res, next) => {
      res.render("auth/login", {
@@ -22,11 +24,18 @@ exports.postRegister = async (req, res, next) => {
                const error = new Error("User already exists");
                throw error;
           } else {
-               const user = await User.create({
-                    lname: lname,
-                    fname: fname,
-                    username: username,
-                    nickname: nickname,
+               bcrypt.hash(password, salt, async (err, hashedPassword) => {
+                    if (err) {
+                         console.log(err);
+                    }
+                    console.log(hashedPassword);
+                    const user = await User.create({
+                         lname: lname,
+                         fname: fname,
+                         username: username,
+                         nickname: nickname,
+                         password: hashedPassword,
+                    });
                });
           }
      } catch (err) {

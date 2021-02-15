@@ -9,6 +9,7 @@ const userSchema = new Schema({
      username: String,
      nickname: String,
      permission: Number, // can be 0,1 or 2
+     password: String,
 });
 const User = Mongoose.model("User", userSchema);
 
