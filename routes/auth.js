@@ -10,6 +10,8 @@ router.post("/auth/register", controllers.postRegister);
 
 router.post("/auth/login", controllers.postLogin);
 
+router.get("/auth/logout", controllers.getLogout);
+
 router.get("/", controllers.getLogin);
 
 //export this route

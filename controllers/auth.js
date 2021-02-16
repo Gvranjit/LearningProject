@@ -13,6 +13,10 @@ exports.getLogin = (req, res, next) => {
           title: "Chat",
      });
 };
+exports.getLogout = (req, res, next) => {
+     req.session.destroy();
+     res.redirect("/");
+};
 
 exports.postLogin = async (req, res, next) => {
      const username = req.body.username;
@@ -42,7 +46,7 @@ exports.postLogin = async (req, res, next) => {
           req.session.isLoggedIn = true;
           req.session.user = user;
           req.session.save((err) => {
-               res.render("home", { title: "Home", username: user.fname });
+               res.redirect("/user/home");
           });
      } catch (err) {
           next(err);

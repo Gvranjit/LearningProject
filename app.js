@@ -26,13 +26,15 @@ app.use(
           resave: false,
           saveUninitialized: true,
           store: new MongoStore({ url: "mongodb://localhost/EkChatSessions" }),
-          cookie: { maxAge: 10000 },
+          cookie: { expires: 3600000 },
      })
 );
 // RESPONSE LOCALS
 app.use((req, res, next) => {
      res.locals.isLoggedIn = false;
      res.locals.profilePicUrl = "/images/placeholder-profile.jpg";
+     res.locals.title = "Chat";
+     res.locals.isLoggedIn = req.session.isLoggedIn;
      // might need to add Cache control to not store anything here.
      next();
 });
@@ -44,6 +46,7 @@ app.use("/user", userRoutes);
 app.use(authRoutes);
 app.use((error, req, res, next) => {
      console.log("An error was reported \n" + error);
+     return res.render("error", { error: error });
 });
 //Connect to database and start listening to a predfined port after that.
 

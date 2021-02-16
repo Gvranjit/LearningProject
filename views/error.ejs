@@ -5,8 +5,9 @@
           <%-include ("./includes/nav.ejs") %>
 
           <br /><br /><br />
-          Welcome to Chat, <%= username %>!
-
-          <div><button class="button">Sign out</button></div>
+          <h1><%= error.statusCode %></h1>
+          <br />
+          <h2><%= error.message %></h2>
+          <h3>Sorry! There was an error while trying to load this page</h3>
      </body>
 </html>

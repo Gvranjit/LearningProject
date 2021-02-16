@@ -38,6 +38,6 @@ button:focus {
      display: none;
      height: 100vh;
      width: 100vw;
-     backdrop-filter: blur(3px);
+
      z-index: 100;
 }
