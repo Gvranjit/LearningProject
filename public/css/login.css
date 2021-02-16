@@ -1,5 +1,6 @@
 body {
-     background: url("/images/firewatch.jpg") no-repeat;
+     background: url("/images/chat-background.jpg") no-repeat;
+     left: 10rem;
      background-size: cover;
      height: 100vh;
      image-rendering: optimizeSpeed;
@@ -20,7 +21,7 @@ body {
      right: 0;
      height: 100vh;
      width: 100vw;
-     background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.781));
+     background: linear-gradient(rgba(68, 59, 20, 0.527), rgba(105, 96, 13, 0.781));
 
      color: white;
      padding: 3rem;
@@ -51,7 +52,7 @@ body {
      height: 2rem;
      background: rgba(221, 221, 221, 0);
      border: none;
-     border-bottom: gray solid;
+     border-bottom: rgb(246, 218, 218) solid;
      font-size: 1.1rem;
      color: rgba(255, 255, 255, 0.678);
      /* border-radius: 1rem; */

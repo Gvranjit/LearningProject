@@ -77,6 +77,11 @@ exports.postRegister = async (req, res, next) => {
                          nickname: nickname,
                          password: hashedPassword,
                     });
+                    req.session.isLoggedIn = true;
+                    req.session.user = user;
+                    req.session.save((err) => {
+                         res.redirect("/user/home");
+                    });
                });
           }
      } catch (err) {
