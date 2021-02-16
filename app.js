@@ -3,7 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const Mongoose = require("mongoose");
 const path = require("path");
-
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 // OTHER IMPORTS
 const adminRoutes = require("./routes/admin");
 const userRoutes = require("./routes/user");
@@ -19,6 +20,15 @@ app.use(bodyParser.urlencoded({ extended: true })); //initialize body parser
 
 app.use(express.static(path.join(__dirname, "public"))); // initialize public folder
 
+app.use(
+     session({
+          secret: "EkChatSecret",
+          resave: false,
+          saveUninitialized: true,
+          store: new MongoStore({ url: "mongodb://localhost/EkChatSessions" }),
+          cookie: { maxAge: 10000 },
+     })
+);
 // RESPONSE LOCALS
 app.use((req, res, next) => {
      res.locals.isLoggedIn = false;
@@ -37,7 +47,7 @@ app.use((error, req, res, next) => {
 });
 //Connect to database and start listening to a predfined port after that.
 
-Mongoose.connect(process.env.CHATDB, { useNewUrlParser: true })
+Mongoose.connect(process.env.CHATDB, { useNewUrlParser: true, useUnifiedTopology: true })
      .then(() => {
           console.log("successfully connected to ", process.env.CHATDB);
           app.listen(process.env.PORT);

@@ -23,5 +23,5 @@ MongoDB, Mongoose ORM
 
 # Authentication :
 
--    Google sign in button (very simple for now, can be bypassed easily, but that's besides the point)
+-    Normal authentication using DB
 -

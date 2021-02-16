@@ -5,9 +5,13 @@ const router = require("express").Router();
 const controllers = require("../controllers/auth");
 
 // add auth routes here
-router.get("/", controllers.getLogin);
 
 router.post("/auth/register", controllers.postRegister);
 
+router.post("/auth/login", controllers.postLogin);
+
+router.get("/", controllers.getLogin);
+
 //export this route
+
 module.exports = router;
