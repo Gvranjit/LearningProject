@@ -10,6 +10,7 @@ const userSchema = new Schema({
      nickname: String,
      permission: Number, // can be 0,1 or 2
      password: String,
+     banned: { status: { type: Boolean, default: false }, reason: String },
 });
 const User = Mongoose.model("User", userSchema);
 
