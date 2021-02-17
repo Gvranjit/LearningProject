@@ -5,8 +5,23 @@
      <link rel="stylesheet" href="/css/login.css" />
 
      <body>
-          <%-include ("../includes/nav.ejs") %>
-          <h2>this is a dummy management page</h2>
+          <%-include ("../includes/nav.ejs") %> <br /><br /><br />
+          <div class="userlist">
+               <table>
+                    <th>First name</th>
+                    <th>Last Name</th>
+                    <th>Nickname</th>
+                    <th>Username</th>
+                    <% users.forEach(user => { %>
+                    <tr>
+                         <td><%= user.fname %></td>
+                         <td><%= user.lname %></td>
+                         <td><%= user.nickname %></td>
+                         <td><%= user.username %></td>
+                    </tr>
+                    <% }) %>
+               </table>
+          </div>
           <script src="/scripts/login.js"></script>
      </body>
 </html>
