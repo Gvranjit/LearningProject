@@ -53,6 +53,10 @@ app.use((error, req, res, next) => {
 Mongoose.connect(process.env.CHATDB, { useNewUrlParser: true, useUnifiedTopology: true })
      .then(() => {
           console.log("successfully connected to ", process.env.CHATDB);
-          app.listen(process.env.PORT);
+          const server = app.listen(process.env.PORT);
+          const io = require("socket.io")(server);
+          io.on("connection", (socket) => {
+               console.log("Connected to Client");
+          });
      })
      .catch((err) => console.log(err));
