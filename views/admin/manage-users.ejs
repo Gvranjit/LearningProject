@@ -6,6 +6,18 @@
 
      <body>
           <%-include ("../includes/nav.ejs") %> <br /><br /><br />
+          <form action="/admin/manage-users" method="post">
+          
+               <select name="pageInput" id="" class="pageInput">
+                    
+                    <% for( let selectPage = 1; selectPage <= pages; selectPage++ ) { %>
+                         <option value=<%= selectPage %>> <%= selectPage %> </option>
+                    <% } %>
+                   
+              </select>
+
+              <button type="submit">Go</button>
+          </form>
           <div class="userlist">
                <table>
                     <th>First name</th>
@@ -21,6 +33,18 @@
                     </tr>
                     <% }) %>
                </table>
+          </div> 
+          <div class="pagination">
+         
+               
+               <button onclick="location.href='/admin/manage-users?page=<%= previousPage %>'" class="previous" <%= currentPage==1?'disabled=true':null %>   >Prev</button>
+      
+
+               <%= currentPage %> 
+
+       
+               <button onclick="location.href='/admin/manage-users?page=<%= nextPage %>'" class="next" <%= currentPage==pages?'disabled=true':null %>   >Next</button>
+        
           </div>
           <script src="/scripts/login.js"></script>
      </body>

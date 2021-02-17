@@ -41,3 +41,6 @@ button:focus {
 
      z-index: 100;
 }
+.pageInput {
+     width: 2rem;
+}
