@@ -2,7 +2,7 @@
 <html lang="en">
      <%- include ("../includes/head.ejs") %>
 
-     <link rel="stylesheet" href="/css/login.css" />
+     
 
      <body>
           <%-include ("../includes/nav.ejs") %> <br /><br /><br />
@@ -16,35 +16,46 @@
                    
               </select>
 
-              <button type="submit">Go</button>
+              <button class="btn btn-secondary" type="submit">Go</button>
           </form>
-          <div class="userlist">
-               <table>
+          <div class="container">
+               <table class="table">
                     <th>First name</th>
                     <th>Last Name</th>
-                    <th>Nickname</th>
                     <th>Username</th>
+                    <th>Role</th>
                     <% users.forEach(user => { %>
                     <tr>
                          <td><%= user.fname %></td>
                          <td><%= user.lname %></td>
-                         <td><%= user.nickname %></td>
+                         
                          <td><%= user.username %></td>
                          <td> <%= user.role %> </td>
+                         <td><div class="btn-group" role="group" aria-label="Basic example">
+                              <button type="button" class="btn btn-info" onclick="location.href='/user/edit/<%= user.username %>'">Edit</button>
+                              <form action="/user/ban/<%= user.username %>" method="POST">
+                                   <button type="submit" class="btn btn-warning">Ban</button>
+                              </form>
+                              <form action="/user/delete/<%= user.username %>" method="POST">
+                                   <button type="submit" class="btn btn-danger">Delete</button>
+                              </form>
+                            </div></td>
                     </tr>
                     <% }) %>
                </table>
           </div> 
-          <div class="pagination">
+          <div class="container">
+               <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" href="/admin/manage-users?page=<%= previousPage %>" <%= currentPage==1?'hidden':null %>>Previous</a></li>
+                   
+                      <li class="page-item"><a class="page-link" href="#"><%= currentPage %> </a></li>
          
+                      <li class="page-item"><a class="page-link" href="/admin/manage-users?page=<%= nextPage %>" <%= currentPage==pages?'hidden':null %>>Next</a></li>
+                    </ul>
+                  </nav>
                
-               <button onclick="location.href='/admin/manage-users?page=<%= previousPage %>'" class="previous" <%= currentPage==1?'disabled=true':null %>   >Prev</button>
-      
-
-               <%= currentPage %> 
-
-       
-               <button onclick="location.href='/admin/manage-users?page=<%= nextPage %>'" class="next" <%= currentPage==pages?'disabled=true':null %>   >Next</button>
+         
         
           </div>
           <script src="/scripts/login.js"></script>
