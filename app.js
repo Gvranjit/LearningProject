@@ -5,28 +5,15 @@ const Mongoose = require("mongoose");
 const path = require("path");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const AccessControl = require("accesscontrol").AccessControl;
+
+//Permissions import
+const ac = require("./permissions");
 
 // OTHER IMPORTS
 const adminRoutes = require("./routes/admin");
 const userRoutes = require("./routes/user");
 const authRoutes = require("./routes/auth");
 
-//ACCESS CONTROL DEFINITIONS
-const ac = new AccessControl();
-ac.grant("user")
-     .createOwn("notes")
-     .deleteOwn("notes")
-     .readOwn("notes")
-     .grant("admin")
-     .extend("user")
-     .updateAny("notes")
-     .updateAny("notes")
-     .deleteAny("notes");
-
-const permission = ac.can("user").createOwn("notes");
-console.log(permission.granted);
-console.log(permission.attributes);
 // INITIALIZATION
 const app = express();
 app.set("view engine", "ejs");

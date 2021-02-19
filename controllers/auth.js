@@ -3,6 +3,10 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const salt = 10;
 
+//accessperms
+
+const ac = require("../permissions");
+
 exports.getLogin = (req, res, next) => {
      const loggedIn = req.session.isLoggedIn;
      console.log("GETLOGIN " + loggedIn);
@@ -43,6 +47,16 @@ exports.postLogin = async (req, res, next) => {
                error.statusCode = 401;
                throw error;
           }
+          const perms = ac.can(user.role).readOwn("homepage");
+          console.log(perms);
+          console.log(perms.granted);
+          //only allow a user to login if they have permission to do so
+          if (!perms.granted) {
+               const error = new Error("You have been banned from Chat");
+               error.statusCode = 403;
+               throw error;
+          }
+
           req.session.isLoggedIn = true;
           req.session.user = user;
           req.session.save((err) => {
