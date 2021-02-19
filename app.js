@@ -24,6 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true })); //initialize body parser
 
 app.use(express.static(path.join(__dirname, "public"))); // initialize public folder
 
+app.use("/css", express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
+app.use("/js", express.static(path.join(__dirname, "node_modules/bootstrap/dist/js")));
+
 app.use(
      session({
           secret: "EkChatSecret",

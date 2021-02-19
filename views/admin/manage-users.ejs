@@ -32,11 +32,11 @@
                          <td><%= user.username %></td>
                          <td> <%= user.role %> </td>
                          <td><div class="btn-group" role="group" aria-label="Basic example">
-                              <button type="button" class="btn btn-info" onclick="location.href='/user/edit/<%= user.username %>'">Edit</button>
-                              <form action="/user/ban/<%= user.username %>" method="POST">
+                              <button type="button" class="btn btn-info" onclick="location.href='edit-user/<%= user.username %>'">Edit</button>
+                              <form action="ban-user/<%= user.username %>" method="POST">
                                    <button type="submit" class="btn btn-warning">Ban</button>
                               </form>
-                              <form action="/user/delete/<%= user.username %>" method="POST">
+                              <form action="delete-user/<%= user.username %>" method="POST">
                                    <button type="submit" class="btn btn-danger">Delete</button>
                               </form>
                             </div></td>

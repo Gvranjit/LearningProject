@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+     <%- include ("../includes/head.ejs") %>
+
+     
+
+     <body>
+          <%-include ("../includes/nav.ejs") %> <br /><br /><br />
+        
+            <div class="container">
+                    <form action="/admin/update-user" method="POST" >
+                    <label for="fname">First Name</label>
+                    <input name="fname"  id="fname" type="text" class="form-control" value= <%= editableUser.fname %> >
+                    <br>
+                    <label for="lname">Last Name</label>
+                    <input name="lname" id="lname" type="text" class="form-control" value= <%= editableUser.lname %> >
+                    <br>
+                    <label for="username">Username</label>
+                    <input name="username" id="username" type="text" class="form-control" value= <%= editableUser.username %> >
+                    <br>
+                    <label for="nickname">Nickname</label>
+                    <input name="nickname" id="nickname" type="text" class="form-control" value= <%= editableUser.nickname %> >
+                    <br>
+                    <label for="role">Role</label>
+                    <input name="role" id="role" type="text" class="form-control" value= <%= editableUser.role %> >
+                    <br>
+                   
+                    <button class="btn btn-primary" type="submit">Update</button>
+                    <button class="btn btn-primary" type="reset">Reset values</button>
+                    </form>
+                    
+
+
+            </div>
+ 
+          <script src="/scripts/login.js"></script>
+     </body>
+</html>
