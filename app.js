@@ -5,9 +5,13 @@ const Mongoose = require("mongoose");
 const path = require("path");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-
+const brcypt = require("bcrypt");
 //Permissions import
 const ac = require("./permissions");
+
+//models import
+const User = require("./models/user");
+const Role = require("./models/roles");
 
 // OTHER IMPORTS
 const adminRoutes = require("./routes/admin");
@@ -23,6 +27,7 @@ app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: true })); //initialize body parser
 
 app.use(express.static(path.join(__dirname, "public"))); // initialize public folder
+app.use(express.static(path.join(__dirname, "node_modules/bootstrap-icons")));
 
 app.use("/css", express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
 app.use("/js", express.static(path.join(__dirname, "node_modules/bootstrap/dist/js")));
@@ -55,15 +60,66 @@ app.use((error, req, res, next) => {
      console.log("An error was reported \n" + error);
      return res.render("error", { error: error });
 });
+
 //Connect to database and start listening to a predfined port after that.
 
 Mongoose.connect(process.env.CHATDB, { useNewUrlParser: true, useUnifiedTopology: true })
-     .then(() => {
+     .then(async () => {
           console.log("successfully connected to ", process.env.CHATDB);
+          //check if default role exists and create one if there isn't
+          let defaultRole = await Role.findOne({ name: "user" });
+          if (!defaultRole) {
+               defaultRole = new Role({
+                    name: "user",
+               });
+               const userRole = await defaultRole.save();
+          }
+
+          //set up roles and permissions for admin account, if they dont exist
+          let adminRole, role;
+
+          adminRole = await Role.findOne({ name: "admin" });
+          if (!adminRole) {
+               adminRole = new Role({
+                    name: "admin",
+                    permissions: {
+                         users: {
+                              "delete:own": [], //admin cannot delete their own account.
+                              "update:own": ["*", "!role"], //admin cannot change role for their own account
+                         },
+                    },
+               });
+          }
+
+          role = await adminRole.save();
+
+          //check if any users exist in database and create an Admin account if not.
+          const user = await User.findOne({ username: "administrator" });
+
+          if (!user) {
+               console.log("No admin was found in database");
+
+               brcypt.hash("administrator", 10, (hashedPassword) => {
+                    //hashing an empty password for the admin account.
+
+                    const user = new User({
+                         username: "administrator",
+                         password: hashedPassword,
+                         role: adminRole,
+                    });
+                    return user.save();
+               });
+
+               console.log("ADMIN ROLE", adminRole.permissions);
+          } else {
+               console.log("The last one");
+          }
+
           const server = app.listen(process.env.PORT);
           const io = require("socket.io")(server);
           io.on("connection", (socket) => {
                console.log("Connected to Client");
           });
      })
+
      .catch((err) => console.log(err));
