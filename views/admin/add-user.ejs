@@ -8,33 +8,34 @@
           <%-include ("../includes/nav.ejs") %> <br /><br /><br />
         
             <div class="container">
-                    <form action="/admin/update-user" method="POST" >
+                    <form action="/admin/add-user" method="POST" >
                     <label for="fname">First Name</label>
-                    <input name="fname"  id="fname" type="text" class="form-control" value= <%= editableUser.fname %> >
+                    <input name="fname"  id="fname" type="text" class="form-control"  >
                     <br>
                     <label for="lname">Last Name</label>
-                    <input name="lname" id="lname" type="text" class="form-control" value= <%= editableUser.lname %> >
+                    <input name="lname" id="lname" type="text" class="form-control"  >
                     <br>
                     <label for="username">Username</label>
-                    <input name="username" id="username" type="text" class="form-control" value= <%= editableUser.username %> >
+                    <input name="username" id="username" type="text" class="form-control"  >
                     <br>
                     <label for="nickname">Nickname</label>
-                    <input name="nickname" id="nickname" type="text" class="form-control" value= <%= editableUser.nickname %> >
+                    <input name="nickname" id="nickname" type="text" class="form-control"  >
                     <br>
                     <label for="role">Role</label>
                      
                     <SELECT name="role" id="role" type="text" class="form-control"  >
                          <% roles.forEach(role => { %>
                    
-                         <option  value="<%= role._id %>"  <%=role.name== editableUser.role.name? "selected" :null %> > <%= role.name %></option>
+                         <option  value="<%= role._id %>"   > <%= role.name %></option>
                          <% }) %>
 
                          </SELECT>
                     <br>
                    
-                    <button class="btn btn-primary" type="submit">Update</button>
-                    <button class="btn btn-primary" type="reset">Reset values</button>
-                    </form>
+                    <button class="btn btn-primary" type="submit">Add new User</button>
+                    <button class="btn btn-warning" type="reset">Clear</button>
+                    <button class="btn btn-danger" type="reset">Cancel</button>
+                    </form>     
                     
 
 

@@ -6,18 +6,12 @@
 
      <body>
           <%-include ("../includes/nav.ejs") %> <br /><br /><br />
-          <form action="/admin/manage-users" method="post">
+          <div class="container">
+             <form action="/admin/add-user" method="get">
+           <button class="btn btn-secondary" type="submit">Add new user</button>
+          </form>  
+          </div>
           
-               <select name="pageInput" id="" class="pageInput">
-                    
-                    <% for( let selectPage = 1; selectPage <= pages; selectPage++ ) { %>
-                         <option value=<%= selectPage %>> <%= selectPage %> </option>
-                    <% } %>
-                   
-              </select>
-
-              <button class="btn btn-secondary" type="submit">Go</button>
-          </form>
           <div class="container">
                <table class="table">
                     <th>First name</th>
@@ -30,7 +24,7 @@
                          <td><%= user.lname %></td>
                          
                          <td><%= user.username %></td>
-                         <td> <%= user.role %> </td>
+                         <td> <%= user.role.name %> </td>
                          <td><div class="btn-group" role="group" aria-label="Basic example">
                               <button type="button" class="btn btn-info" onclick="location.href='edit-user/<%= user.username %>'">Edit</button>
                               <form action="ban-user/<%= user.username %>" method="POST">

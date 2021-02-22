@@ -18,5 +18,10 @@ router.post("/delete-user", isAuth, controller.postDeleteUser);
 
 router.post("/ban-user", isAuth, controller.postBanUser);
 
+router.get("/add-user", isAuth, controller.getAddUser);
+
+router.post("/add-user", isAuth, controller.postAddUser);
+
+
 //export this route
 module.exports = router;

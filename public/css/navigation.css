@@ -30,7 +30,7 @@
 .logo-text {
      display: inline-block;
      position: relative;
-     bottom: 1rem;
+     top: 0.5rem;
      font-size: 1.5rem;
      font-weight: bold;
      animation: logo-rainbow 10s infinite;

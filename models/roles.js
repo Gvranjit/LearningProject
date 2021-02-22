@@ -6,7 +6,7 @@ const Schema = Mongoose.Schema;
 const rolesSchema = new Schema({
      name: Schema.Types.String,
      permissions: {
-          roles: {
+          role: {
                "create:any": [String],
                "read:any": [String],
                "update:any": [String],
@@ -16,7 +16,7 @@ const rolesSchema = new Schema({
                "update:own": [String],
                "delete:own": [String],
           },
-          users: {
+          user: {
                "create:any": [String],
                "read:any": [String],
                "update:any": [String],
@@ -25,7 +25,7 @@ const rolesSchema = new Schema({
                "update:own": { type: [String], default: ["*"] },
                "delete:own": [String],
           },
-          messages: {
+          message: {
                "create:any": [String],
                "read:any": { type: [String], default: ["*"] },
                "update:any": [String],

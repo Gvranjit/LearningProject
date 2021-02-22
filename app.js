@@ -58,67 +58,95 @@ app.use("/user", userRoutes);
 app.use(authRoutes);
 app.use((error, req, res, next) => {
      console.log("An error was reported \n" + error);
+     if (!error.statusCode) {
+          error.message = "Internal Error";
+     }
      return res.render("error", { error: error });
 });
 
-//Connect to database and start listening to a predfined port after that.
+//Connect to database, check users,roles and perms and start listening to a predfined port after that.
 
 Mongoose.connect(process.env.CHATDB, { useNewUrlParser: true, useUnifiedTopology: true })
      .then(async () => {
-          console.log("successfully connected to ", process.env.CHATDB);
-          //check if default role exists and create one if there isn't
-          let defaultRole = await Role.findOne({ name: "user" });
-          if (!defaultRole) {
-               defaultRole = new Role({
-                    name: "user",
-               });
-               const userRole = await defaultRole.save();
-          }
-
-          //set up roles and permissions for admin account, if they dont exist
-          let adminRole, role;
-
-          adminRole = await Role.findOne({ name: "admin" });
-          if (!adminRole) {
-               adminRole = new Role({
-                    name: "admin",
-                    permissions: {
-                         users: {
-                              "delete:own": [], //admin cannot delete their own account.
-                              "update:own": ["*", "!role"], //admin cannot change role for their own account
-                         },
-                    },
-               });
-          }
-
-          role = await adminRole.save();
-
-          //check if any users exist in database and create an Admin account if not.
-          const user = await User.findOne({ username: "administrator" });
-
-          if (!user) {
-               console.log("No admin was found in database");
-
-               brcypt.hash("administrator", 10, (hashedPassword) => {
-                    //hashing an empty password for the admin account.
-
-                    const user = new User({
-                         username: "administrator",
-                         password: hashedPassword,
-                         role: adminRole,
+          try {
+               console.log("successfully connected to ", process.env.CHATDB);
+               //check if default role exists and create one if there isn't
+               let defaultRole = await Role.findOne({ name: "user" });
+               if (!defaultRole) {
+                    defaultRole = new Role({
+                         name: "user",
                     });
-                    return user.save();
-               });
+                    const userRole = await defaultRole.save();
+               }
 
-               console.log("ADMIN ROLE", adminRole.permissions);
-          } else {
-               console.log("The last one");
+               //set up roles and permissions for admin account, if they dont exist
+               let adminRole, role;
+
+               adminRole = await Role.findOne({ name: "admin" });
+               if (!adminRole) {
+                    adminRole = new Role({
+                         name: "admin",
+                         permissions: {
+                              user: {
+                                   "delete:own": [], //admin cannot delete their own account.
+                                   "update:own": ["*", "!role"], //admin cannot change role for their own account
+                                   "create:any": ["*"],
+                                   "read:any": ["*"],
+                                   "update:any": ["*"],
+                                   "delete:any": ["*"],
+                                   "delete:own": ["*"],
+                              },
+                              role: {
+                                   "create:any": ["*"],
+                                   "read:any": ["*"],
+                                   "update:any": ["*"],
+                                   "delete:any": ["*"],
+                                   "create:own": ["*"],
+                                   "read:own": ["*"],
+                                   "update:own": ["*"],
+                                   "delete:own": ["*"],
+                              },
+
+                              message: {
+                                   "create:any": ["*"],
+                                   "update:any": ["*"],
+                                   "delete:any": ["*"],
+                              },
+                         },
+                    });
+               }
+
+               role = await adminRole.save();
+
+               //check if any users exist in database and create an Admin account if not.
+               const user = await User.findOne({ username: "admin" });
+
+               if (!user) {
+                    console.log("No admin was found in database");
+
+                    brcypt.hash("admin", 10, (err, hashedPassword) => {
+                         //hashing an empty password for the admin account.
+
+                         const user = new User({
+                              username: "admin",
+                              password: hashedPassword,
+                              role: adminRole,
+                         });
+                         return user.save();
+                    });
+               }
+               // Starting the server
+               const server = app.listen(process.env.PORT);
+               const io = require("socket.io")(server);
+               io.on("connection", (socket) => {
+                    console.log("Connected to Client");
+               });
+          } catch (error) {
+               throw error;
           }
 
-          const server = app.listen(process.env.PORT);
-          const io = require("socket.io")(server);
-          io.on("connection", (socket) => {
-               console.log("Connected to Client");
+          ac.reload().then((roles) => {
+               console.log("Roles were loaded");
           });
      })
 

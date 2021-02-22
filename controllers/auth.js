@@ -5,7 +5,9 @@ const salt = 10;
 
 //accessperms
 
-const ac = require("../permissions");
+const permissions = require("../permissions");
+const { populate } = require("../models/user");
+const ac = permissions.ac;
 
 exports.getLogin = (req, res, next) => {
      const loggedIn = req.session.isLoggedIn;
@@ -35,7 +37,9 @@ exports.postLogin = async (req, res, next) => {
      //if user doesnt exist or passwords dont match, send an error message.
 
      try {
-          const user = await User.findOne({ username: username });
+          const user = await (await User.findOne({ username: username }))
+               .populate("role")
+               .execPopulate();
           if (!user) {
                const error = new Error("Username or Password Incorrect");
                error.statusCode = 401;
@@ -47,15 +51,14 @@ exports.postLogin = async (req, res, next) => {
                error.statusCode = 401;
                throw error;
           }
-          const perms = ac.can(user.role).readOwn("homepage");
-          console.log(perms);
-          console.log(perms.granted);
+          console.log(user.role);
+          // const perms = ac().can(user.role.name).readOwn("homepage");
           //only allow a user to login if they have permission to do so
-          if (!perms.granted) {
-               const error = new Error("You have been banned from Chat");
-               error.statusCode = 403;
-               throw error;
-          }
+          // if (!perms.granted) {
+          //      const error = new Error("You have been banned from Chat");
+          //      error.statusCode = 403;
+          //      throw error;
+          // }
 
           req.session.isLoggedIn = true;
           req.session.user = user;

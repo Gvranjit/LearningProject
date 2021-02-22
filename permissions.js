@@ -1,21 +1,30 @@
 const AccessControl = require("accesscontrol").AccessControl;
+const Role = require("./models/roles");
 
 //ACCESS CONTROL DEFINITIONS
-const ac = new AccessControl();
-ac.grant("user")
-     .createOwn("notes")
-     .deleteOwn("notes")
-     .readOwn("notes")
-     .readOwn("homepage")
-     .grant("admin")
-     .extend("user")
-     .updateAny("notes")
-     .updateAny("notes")
-     .deleteAny("notes")
-     .createAny("user")
-     .updateAny("user")
-     .deleteAny("user")
-     .readAny("user")
-     .grant("bannedUser"); //basically no rights at all.
 
-module.exports = ac;
+//creating a promise in order to make it eaiser to call this from anywhere.
+let ac;
+module.exports = {
+     reload: () => {
+          return new Promise(async (resolve, reject) => {
+               try {
+                    const roles = await Role.find();
+                    let roleObject = {};
+
+                    roles.forEach((role) => {
+                         roleObject[role.name] = role._doc.permissions;
+                    });
+
+                    ac = new AccessControl(roleObject);
+
+                    resolve(ac);
+               } catch (error) {
+                    reject(error);
+               }
+          });
+     },
+     ac: () => {
+          return ac;
+     },
+};
