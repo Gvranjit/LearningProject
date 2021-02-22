@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+     <%- include ("../includes/head.ejs") %>
+
+     
+
+     <body>
+          <%-include ("../includes/nav.ejs") %> <br /><br /><br />
+          <form action="/admin/manage-roles" method="post">
+          
+               <select name="pageInput" id="" class="pageInput">
+                    
+                    <% for( let selectPage = 1; selectPage <= pages; selectPage++ ) { %>
+                         <option value=<%= selectPage %>> <%= selectPage %> </option>
+                    <% } %>
+                   
+              </select>
+
+              <button class="btn btn-secondary" type="submit">Go</button>
+          </form>
+          <div class="container">
+               <table class="table">
+                    <th>Role</th>
+                    <th>Permissions</th>
+                
+                    <% roles.forEach(role => { %>
+                    <tr>
+                         <td><%= role.name %></td>
+                         <td>
+                         <% role.perms.forEach(perm => { %>
+                              <%= role.perm %> 
+                         <% }) %>     
+                         </td>
+                         
+                      
+                         <td><div class="btn-group" role="group" aria-label="Basic example">
+                              <button type="button" class="btn btn-info" onclick="location.href='edit-role/<%= role.name %>'">Edit</button>
+                             
+                            </div></td>
+                    </tr>
+                    <% }) %>
+               </table>
+          </div> 
+          <div class="container">
+               <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" href="/admin/manage-roles?page=<%= previousPage %>" <%= currentPage==1?'hidden':null %>>Previous</a></li>
+                   
+                      <li class="page-item"><a class="page-link" href="#"><%= currentPage %> </a></li>
+         
+                      <li class="page-item"><a class="page-link" href="/admin/manage-roles?page=<%= nextPage %>" <%= currentPage==pages?'hidden':null %>>Next</a></li>
+                    </ul>
+                  </nav>
+               
+         
+        
+          </div>
+          <script src="/scripts/login.js"></script>
+     </body>
+</html>
