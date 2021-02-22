@@ -11,19 +11,20 @@ const ac = require("../permissions");
 
 exports.postEditUser = async (req, res, next) => {
      const data = req.body;
-     console.log(data)
+     console.log(data);
      const editableUser = {
           fname: data.fname,
           lname: data.lname,
           nickname: data.nickname,
           username: data.username,
-          role:data.role
+          role: data.role,
      };
-     console.log(editableUser)
+     console.log(editableUser);
      const user = req.session.user;
 
      try {
-          if (!ac.can(user).updateAny("user")) {
+          const permission = ac.can(user).updateAny("user");
+          if (!permission.granted) {
                const error = new Error("Not Permitted");
                error.statusCode = 403;
                throw error;
@@ -44,16 +45,18 @@ exports.postEditUser = async (req, res, next) => {
                username: editableUser.username,
                role: editableUser.role,
           });
-         
-          res.redirect('/admin/manage-users');
-     } catch (error) {next(error)}
+
+          res.redirect("/admin/manage-users");
+     } catch (error) {
+          next(error);
+     }
 };
 exports.getEditUser = async (req, res, next) => {
      const editableUsername = req.params.username;
      const user = req.session.user;
      //check if the user exists and throw error if not
      try {
-          if (!ac.can(user).updateAny("user")) {
+          if (!permission) {
                const error = new Error("Not Permitted");
                error.statusCode = 403;
                throw error;
@@ -73,7 +76,29 @@ exports.getEditUser = async (req, res, next) => {
           next(err);
      }
 };
-exports.postDeleteUser = async (req, res, next) => {};
+exports.postDeleteUser = async (req, res, next) => {
+     const deletableUserName = req.params.username;
+     const user = req.session.user;
+     //check if the user exists and throw error if not
+     try {
+          const permission = ac.can(user).deleteAny("user");
+          if (!permission.granted) {
+               const error = new Error("Not Permitted");
+               error.statusCode = 403;
+               throw error;
+          }
+          const deletableUser = await User.findOne({ username: deletableUserName });
+          if (!deletableUser) {
+               const error = new Error("No such user");
+               error.statusCode = 400;
+               throw error;
+          }
+          deletableUser.delete();
+          res.redirect("/admin/manage-users");
+     } catch (err) {
+          next(err);
+     }
+};
 
 exports.postBanUser = async (req, res, next) => {};
 
