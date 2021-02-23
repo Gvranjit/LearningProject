@@ -6,11 +6,12 @@ const Schema = Mongoose.Schema;
 const userSchema = new Schema({
      fname: String,
      lname: String,
-     username: String,
+     username: { type: String, required: true, unique: true },
      nickname: String,
      permission: Number, // can be 0,1 or 2
-     password: String,
-     role: { type: Mongoose.Types.ObjectId, ref: "Role" },
+     password: { type: String, required: true },
+     role: { type: Mongoose.Types.ObjectId, ref: "Role", required: true },
+     createdBy: String,
 });
 const User = Mongoose.model("User", userSchema);
 
