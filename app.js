@@ -129,6 +129,7 @@ Mongoose.connect(process.env.CHATDB, { useNewUrlParser: true, useUnifiedTopology
 
                          const user = new User({
                               username: "admin",
+                              fname: "admin",
                               password: hashedPassword,
                               role: adminRole,
                          });
