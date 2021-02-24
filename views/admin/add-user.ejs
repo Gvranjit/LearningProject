@@ -8,7 +8,7 @@
           <%-include ("../includes/nav.ejs") %> <br /><br /><br />
         
             <div class="container">
-                    <form action="/admin/add-user" method="POST" >
+                    <form action="/auth/register" method="POST" >
                     <label for="fname">First Name</label>
                     <input name="fname"  id="fname" type="text" class="form-control"  >
                     <br>
@@ -20,6 +20,9 @@
                     <br>
                     <label for="nickname">Nickname</label>
                     <input name="nickname" id="nickname" type="text" class="form-control"  >
+                    <br>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" type="text" class="form-control"  >
                     <br>
                     <label for="role">Role</label>
                      

@@ -10,7 +10,11 @@ const ac = require("../permissions").ac;
 const Mongoose = require("mongoose");
 
 //exports
-
+exports.postUpdateRole = async (req, res, next) => {
+     const user = req.session.user;
+     const permsData = req.body;
+     console.log(permsData);
+};
 exports.getManageRoles = async (req, res, next) => {
      const user = req.session.user;
      const currentPage = Number(req.query.page || 1);
@@ -45,7 +49,7 @@ exports.getManageRoles = async (req, res, next) => {
           res.render("admin/manage-roles", {
                title: "Manage Roles",
                username: user.name,
-               user:user,
+               user: user,
                roles: rolesList,
                pageSize: pageSize,
                pages: pages,

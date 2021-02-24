@@ -1,6 +1,6 @@
 body {
      background: url("/images/chat-background.jpg") no-repeat;
-     left: 10rem;
+    
      background-size: cover;
      height: 100vh;
      image-rendering: optimizeSpeed;

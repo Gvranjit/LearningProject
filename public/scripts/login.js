@@ -16,7 +16,7 @@ cancelButton.addEventListener("click", closeRegistrationModal);
 //functions
 
 function openRegistrationModal() {
-     console.log("clicked");
+     
      registrationModal.style.display = "block";
      backdrop.style.display = "block";
 }

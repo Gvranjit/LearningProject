@@ -18,29 +18,193 @@
 
               <button class="btn btn-secondary" type="submit">Go</button>
           </form>
+
+          <form action="/admin/update-role">
           <div class="container">
                <table class="table">
                     <th>Role</th>
                     <th>Permissions</th>
-                
+                    <th>Create Any</th>
+                    <th>Read Any</th>
+                    <th>Update Any</th>
+                    <th>Delete Any</th>
+                    <th>Create Own</th>
+                    <th>Read Own</th>
+                    <th>Update Own</th>
+                    <th>Delete Own</th>
+                                    
                     <% roles.forEach(role => { %>
                     <tr>
                          <td><%= role.name %></td>
+                         <td>Manage Roles: </td>
+                              
                          <td>
-                         <% role.perms.forEach(perm => { %>
-                              <%= role.perm %> 
-                         <% }) %>     
+                              
+                              <div class="form-check">
+                                   <input class="form-check-input" type="checkbox" name="roleCreateAny" id="flexCheckChecked" <%= role.permissions.role['create:any']=="*"?'checked':null %> >
+                              </div>
+                              
                          </td>
+                              
+                              <td>
+                              <input class="form-check-input" type="checkbox" name="roleReadAny" id="flexCheckChecked" <%= role.permissions.role['read:any']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleUpdateAny" id="flexCheckChecked" <%= role.permissions.role['update:any']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleDeleteAny" id="flexCheckChecked" <%= role.permissions.role['delete:any']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleCreateOwn" id="flexCheckChecked" <%= role.permissions.role['create:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
                          
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleReadOwn" id="flexCheckChecked" <%= role.permissions.role['read:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleUpdateOwn" id="flexCheckChecked" <%= role.permissions.role['update:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleDeleteOwn" id="flexCheckChecked" <%= role.permissions.role['delete:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                        
                       
-                         <td><div class="btn-group" role="group" aria-label="Basic example">
-                              <button type="button" class="btn btn-info" onclick="location.href='edit-role/<%= role.name %>'">Edit</button>
-                             
-                            </div></td>
+                    </tr>
+
+                    <tr>
+                         <td><%= role.name %></td>
+                         <td>Manage Users: </td>
+                              
+                         <td>
+                              
+                              <div class="form-check">
+                                   <input class="form-check-input" type="checkbox" name="userCreateAny" id="flexCheckChecked" <%= role.permissions.user['create:any']=="*"?'checked':null %> >
+                              </div>
+                              
+                         </td>
+                              
+                              <td>
+                              <input class="form-check-input" type="checkbox" name="userReadAny" id="flexCheckChecked" <%= role.permissions.user['read:any']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="userUpdateAny" id="flexCheckChecked" <%= role.permissions.user['update:any']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="userDeleteAny" id="flexCheckChecked" <%= role.permissions.user['delete:any']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleCreateOwn" id="flexCheckChecked" <%= role.permissions.user['create:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleReadOwn" id="flexCheckChecked" <%= role.permissions.user['read:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleUpdateOwn" id="flexCheckChecked" <%= role.permissions.user['update:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="roleDeleteOwn" id="flexCheckChecked" <%= role.permissions.user['delete:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                        
+           
+                    </tr>
+
+
+                    <tr>
+                         <td><%= role.name %></td>
+                         <td>Manage Messages: </td>
+                              
+                         <td>
+                              
+                              <div class="form-check">
+                                   <input class="form-check-input" type="checkbox" name="messageCreateAny" id="flexCheckChecked" <%= role.permissions.message['create:any']=="*"?'checked':null %> >
+                              </div>
+                              
+                         </td>
+                              
+                              <td>
+                              <input class="form-check-input" type="checkbox" name="messageReadAny" id="flexCheckChecked" <%= role.permissions.message['read:any']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="messageUpdateAny" id="flexCheckChecked" <%= role.permissions.message['update:any']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="messageDeleteAny" id="flexCheckChecked" <%= role.permissions.message['delete:any']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="messageCreateOwn" id="flexCheckChecked" <%= role.permissions.message['create:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="messageReadOwn" id="flexCheckChecked" <%= role.permissions.message['read:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="messageUpdateOwn" id="flexCheckChecked" <%= role.permissions.user['update:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                         
+                         <td>
+                              <input class="form-check-input" type="checkbox" name="messageDeleteOwn" id="flexCheckChecked" <%= role.permissions.user['delete:own']=="*"?'checked':null %> %> >
+                            
+                         </div></td>
+
+                        
+               
                     </tr>
                     <% }) %>
                </table>
+               
+               <div class="btn-group" role="group" aria-label="Basic example">
+                              
+                    <button class="btn btn-success" type="submit">Update</button>
+                    <button type="reset" class="btn btn-info">Clear</button>
+                   
+               </div>
           </div> 
+     </form>
+     <br>
           <div class="container">
                <nav aria-label="Page navigation example">
                     <ul class="pagination">

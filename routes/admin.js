@@ -6,6 +6,8 @@ const isAuth = require("../middlewares/isAuth");
 // add admin routes here
 router.get("/manage-users", isAuth, controller.getManageUsers);
 
+router.get("/manage-roles", isAuth, controller.getManageRoles);
+
 router.get("/edit-user/:username", isAuth, controller.getEditUser);
 
 router.post("/delete-user/:username", isAuth, controller.postDeleteUser);
@@ -21,7 +23,6 @@ router.post("/ban-user", isAuth, controller.postBanUser);
 router.get("/add-user", isAuth, controller.getAddUser);
 
 router.post("/add-user", isAuth, controller.postAddUser);
-
 
 //export this route
 module.exports = router;
