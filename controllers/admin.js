@@ -1,15 +1,62 @@
 //imports
 
 const User = require("../models/user");
-const Role = require ('../models/roles')
+const Role = require("../models/roles");
 const pageSize = 3;
 
 //accesscontrol
 
 const ac = require("../permissions").ac;
-const  Mongoose  = require("mongoose");
+const Mongoose = require("mongoose");
 
 //exports
+
+exports.getManageRoles = async (req, res, next) => {
+     const user = req.session.user;
+     const currentPage = Number(req.query.page || 1);
+
+     //get a list of all roles available
+     //USE PAGINATION, for large lists of user
+     try {
+          console.log(("This is the user ", user));
+          const perms = ac().can(user.role.name);
+          if (!perms.readAny("role").granted) {
+               const error = new Error("You don't have permission to view this page");
+               error.statusCode = 403;
+               throw error;
+          }
+          const totalRoles = await Role.count();
+          //calculate the no. of pages
+          const pages = Math.ceil(totalRoles / pageSize);
+          console.log("Number of pages : ", pages);
+          const rolesList = await Role.find()
+               .skip(currentPage * pageSize - pageSize)
+               .limit(pageSize);
+
+          // const populatedUserslist =     userslist.map(async (user) => {
+          //      return await user.populate("role").execPopulate();
+          // });
+          // well apparently above cannot work because its an async function inside a synchronous one.
+          //I'll try something else below.
+
+          console.log(rolesList);
+          console.log(user);
+
+          res.render("admin/manage-roles", {
+               title: "Manage Roles",
+               username: user.name,
+               user:user,
+               roles: rolesList,
+               pageSize: pageSize,
+               pages: pages,
+               currentPage: currentPage,
+               nextPage: currentPage + 1,
+               previousPage: currentPage - 1,
+          });
+     } catch (err) {
+          next(err);
+     }
+};
 
 exports.postEditUser = async (req, res, next) => {
      const data = req.body;
@@ -82,10 +129,9 @@ exports.postAddUser = async (req, res, next) => {
           }
 
           const newUserData = new User(newUser);
-          newUserData.save().then(addedUser=>{
+          newUserData.save().then((addedUser) => {
                res.redirect("/admin/manage-users");
           });
-
      } catch (error) {
           next(error);
      }
@@ -103,11 +149,10 @@ exports.getAddUser = async (req, res, next) => {
                throw error;
           }
           const roles = await Role.find();
-          console.log(roles)
+          console.log(roles);
           res.render("admin/add-user", {
-              
                title: "Edit User",
-               roles:roles
+               roles: roles,
           });
      } catch (err) {
           next(err);
@@ -135,12 +180,12 @@ exports.getEditUser = async (req, res, next) => {
                throw error;
           }
           const roles = await Role.find();
-          console.log(roles)
+          console.log(roles);
           res.render("admin/edit-user", {
                editableUser: editableUser,
 
                title: "Edit User",
-               roles:roles
+               roles: roles,
           });
      } catch (err) {
           next(err);
