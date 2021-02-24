@@ -1,5 +1,6 @@
 //imports
 const User = require("../models/user");
+const Role = require("../models/roles");
 const bcrypt = require("bcrypt");
 const salt = 10;
 
@@ -77,6 +78,7 @@ exports.postRegister = async (req, res, next) => {
      const lname = req.body.lname;
      const nickname = req.body.nickname;
      const password = req.body.password;
+     const role = await Role.findOne({ name: "user" }); // adding a default user role
 
      //if exists, send back an error message and redirect to registration
 
@@ -91,18 +93,24 @@ exports.postRegister = async (req, res, next) => {
                          console.log(err);
                     }
                     console.log(hashedPassword);
+
                     const user = await User.create({
                          lname: lname,
                          fname: fname,
                          username: username,
                          nickname: nickname,
                          password: hashedPassword,
+                         role: role,
                     });
-                    req.session.isLoggedIn = true;
-                    req.session.user = user;
-                    req.session.save((err) => {
-                         res.redirect("/user/home");
-                    });
+                    //only create a sesson if it is not someone creating a user account
+                    if (!req.session.isLoggedIn) {
+                         req.session.isLoggedIn = true;
+                         req.session.user = user;
+                         req.session.save((err) => {
+                              res.redirect("/user/home");
+                         });
+                    }
+                    res.redirect("/admin/manage-users");
                });
           }
      } catch (err) {
