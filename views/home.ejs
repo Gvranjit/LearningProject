@@ -6,20 +6,49 @@
 
           <br /><br /><br />
 
-          Welcome to Chat, <%= username %>! There is nothing here yet, but something will come up
-          soon !
+          <div class="container-ms">
+               <div class="row">
+                    <div class="col sidebar" >
+                         Container 2
+                    </div>
+                    <div
+                         class="col-7"
+                        
+                    >
+                         <div class="col"></div>Global Chat
+                              <div
+                                   class="row messagebox" id='messagebox'
+                                   
+                              >
+                             This is the start of your messages
+                         
+                              <% messages.forEach(message => { %>
+                                         <div class="card message <%= username==message.sender?'message-author':null %>  ">
+                                         <div class="card-header ">
+                                        <div class="blue"> <%= message.sender %> 
+                                        </div> : <%= message.content %> 
+                                        </div>
+                                        </div>
+                              <% }) %>
+                                        </div>
 
-          <svg class="bi" width="32" height="32" fill="currentColor">
-               <use xlink:href="/bootstrap-icons.svg#heart-fill" />
-          </svg>
-          <svg class="bi" width="32" height="32" fill="currentColor">
-               <use xlink:href="/bootstrap-icons.svg#toggles" />
-          </svg>
-          <svg class="bi" width="32" height="32" fill="currentColor">
-               <use xlink:href="/bootstrap-icons.svg#shop" />
-          </svg>
+                                 
+                                        <form action="" onsubmit="return false" id='chatInput'>
+                              <div class="row chatinput" ><div class="input-group">
 
+                                        <input  id="chatInputBox" type="text" class="form-control" autofocus onsubmit="return false">
+                                        <button class="btn btn-primary" id="sendButton" onsubmit="return false">Send</button>
+                                   </div>
+                              </form>
+                         </div>
+                         </div>
+                         <div class="col sidebar">Container 3</div>
+                    </div>
+               </div>
+          </div>
+          <script>username= '<%= username %>' </script>
           <script src="/socket.io/socket.io.js"></script>
+          <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
           <script src="/scripts/home.js"></script>
      </body>
 </html>
