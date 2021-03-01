@@ -3,10 +3,10 @@ const router = require("express").Router();
 
 //imports
 const controllers = require("../controllers/auth");
-
+const validation = require("../middlewares/validation");
 // add auth routes here
 
-router.post("/auth/register", controllers.postRegister);
+router.post("/auth/register", validation.sanitizeRegistration, controllers.postRegister);
 
 router.post("/auth/login", controllers.postLogin);
 

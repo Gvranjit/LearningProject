@@ -6,12 +6,15 @@ const path = require("path");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const brcypt = require("bcrypt");
+const validation = require("express-validator");
+
 //Permissions import
 const ac = require("./permissions");
 
 //models import
 const User = require("./models/user");
 const Role = require("./models/roles");
+const Message = require("./models/message");
 
 // OTHER IMPORTS
 const adminRoutes = require("./routes/admin");
@@ -141,6 +144,20 @@ Mongoose.connect(process.env.CHATDB, { useNewUrlParser: true, useUnifiedTopology
                const io = require("socket.io")(server);
                io.on("connection", (socket) => {
                     console.log("Connected to Client");
+                    //set up listners
+
+                    socket.on("message", async (message) => {
+                         console.log(message);
+                         socket.broadcast.emit("message", message);
+                         const creator = await User.findOne({ username: message.sender });
+                         const storeMessage = await Message.create({
+                              content: message.content,
+                              sender: message.sender,
+                              author: creator,
+                              createdOn: new Date(),
+                         });
+                         storeMessage.save();
+                    });
                });
           } catch (error) {
                throw error;
