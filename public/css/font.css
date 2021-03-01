@@ -1,5 +1,43 @@
 * {
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial,
-         sans-serif;
+     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial,
+          sans-serif;
 }
 
+.sidebar {
+     height: 80vh;
+     background-color: rgba(43, 43, 43, 0.1);
+}
+
+.messagebox {
+     height: 70vh;
+     background-color: grey;
+     color: white;
+     overflow: scroll;
+     overflow-x: hidden;
+}
+
+.message {
+     height: fit-content;
+     background-color: rgb(78, 66, 77);
+     color: inherit;
+     width: 100%;
+}
+
+.chatinput {
+     height: 1rem;
+     position: absolute;
+     bottom: 1.4rem;
+     width: 100%;
+}
+
+.blue {
+     color: rgb(151, 151, 211);
+     display: inline-block;
+}
+.card-message {
+     display: block;
+}
+
+.message-author {
+     background-color: rgb(74, 0, 96);
+}

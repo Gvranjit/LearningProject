@@ -1,6 +1,6 @@
 body {
-     background: url("/images/chat-background.jpg") no-repeat;
-    
+     background: url("/images/firewatch.jpg") no-repeat;
+
      background-size: cover;
      height: 100vh;
      image-rendering: optimizeSpeed;
@@ -21,7 +21,7 @@ body {
      right: 0;
      height: 100vh;
      width: 100vw;
-     background: linear-gradient(rgba(68, 59, 20, 0.527), rgba(105, 96, 13, 0.781));
+     background: linear-gradient(rgba(5, 5, 5, 0.527), rgba(75, 75, 75, 0.781));
 
      color: white;
      padding: 3rem;
