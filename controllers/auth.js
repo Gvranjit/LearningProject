@@ -109,8 +109,9 @@ exports.postRegister = async (req, res, next) => {
                          req.session.save((err) => {
                               res.redirect("/user/home");
                          });
+                    } else {
+                         res.redirect("/admin/manage-users");
                     }
-                    res.redirect("/admin/manage-users");
                });
           }
      } catch (err) {
